@@ -1,4 +1,5 @@
-# ErisPulse-OneBotAdapter
+# ErisPulse-OneBot
+官方的OneBot适配器开源目录
 
 ## 模块介绍
 
