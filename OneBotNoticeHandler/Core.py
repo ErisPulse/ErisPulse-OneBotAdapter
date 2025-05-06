@@ -1,10 +1,9 @@
 class Main:
-    def __init__(self, sdk, logger):
+    def __init__(self, sdk):
+        self.sdk = sdk
+        self.logger = sdk.logger
         self.on = "notice"
         self.handles: list[object] = []
-        self.sdk = sdk
-        self.logger = logger
-
     def AddHandle(self, handle):
         self.handles.append(handle)
         self.logger.debug(f"成功注册OneBot通知处理器: {handle}")

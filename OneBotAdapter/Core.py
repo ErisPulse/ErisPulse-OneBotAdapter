@@ -5,9 +5,9 @@ import aiohttp
 from aiohttp import web
 
 class Main:
-    def __init__(self, sdk, logger):
+    def __init__(self, sdk):
         self.sdk = sdk
-        self.logger = logger
+        self.logger = sdk.logger
         self.OneBotConfig = sdk.env.get("OneBotAdapter", {})
         
         if not self.OneBotConfig:
@@ -128,28 +128,6 @@ class Main:
             self.logger.error("OneBot消息解析失败: 无效的JSON格式")
         except Exception as e:
             self.logger.error(f"处理OneBot消息时出错: {str(e)}")
-
-    async def send(self, content: dict):
-        if self.connection and not self.connection.closed:
-            try:
-                self.logger.debug(f"发送到OneBot: {content}")
-                return await self.connection.send_str(json.dumps(content))
-            except Exception as e:
-                self.logger.error(f"发送消息到OneBot失败: {str(e)}")
-                return json.dumps({
-                    "status": "failed",
-                    "retcode": 1,
-                    "message": f"发送消息失败: {str(e)}",
-                    "data": None
-                })
-        else:
-            self.logger.error("OneBot连接未建立或已关闭")
-            return json.dumps({
-                "status": "failed",
-                "retcode": 1,
-                "message": "OneBot连接未建立或已关闭",
-                "data": None
-            })
 
     async def send_action(self, action: str, params: dict):
         if not self.connection or self.connection.closed:

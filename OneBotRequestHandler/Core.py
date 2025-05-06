@@ -1,8 +1,8 @@
 class Main:
-    def __init__(self, sdk, logger):
-        self.on = "request"
+    def __init__(self, sdk):
         self.sdk = sdk
-        self.logger = logger
+        self.logger = sdk.logger
+        self.on = "request"
         self.handles: list[object] = []
 
     def AddHandle(self, handle):
